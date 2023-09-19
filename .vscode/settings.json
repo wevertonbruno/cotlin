@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "system_error": "c",
+        "__bit_reference": "cpp",
+        "__split_buffer": "cpp",
+        "string": "cpp",
+        "vector": "cpp",
+        "chunk.h": "c",
+        "debug.h": "c",
+        "memory.h": "c"
+    }
+}
