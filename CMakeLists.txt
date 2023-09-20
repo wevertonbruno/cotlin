@@ -1,27 +1,19 @@
-cmake_minimum_required(VERSION 2.8.12)
-project(cotlin)
+cmake_minimum_required(VERSION 3.25)
+project(
+  Cotlin
+  VERSION 0.0.1
+  DESCRIPTION "A C bytecode compiler for Coltin"
+  )
 
 set(VERSION "0.0.1")
 
-set(
-    CMAKE_CXX_STANDARD
-    90
-)
+set(CMAKE_CXX_STANDARD 90)
 
-set (
-	CMAKE_BINARY_DIR
-	"${CMAKE_SOURCE_DIR}/build"
-)
+set (CMAKE_BINARY_DIR "${CMAKE_SOURCE_DIR}/build")
 
-set (
-	EXECUTABLE_OUTPUT_PATH
-	"${CMAKE_SOURCE_DIR}/bin"
-)
+set (EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/bin")
 
-set (
-	LIBRARY_OUTPUT_PATH
-	"${CMAKE_SOURCE_DIR}/bin"
-)
+set (LIBRARY_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/bin")
 
 if (CMAKE_BUILD_TYPE EQUAL "DEBUG" OR NOT DEFINED(CMAKE_BUILD_TYPE))
 	set (

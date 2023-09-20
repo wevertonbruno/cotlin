@@ -6,7 +6,7 @@
 typedef struct
 {
     unsigned line;
-    unsigned until;
+    unsigned offset;
 } Line;
 
 

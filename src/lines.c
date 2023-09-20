@@ -9,10 +9,10 @@ Lines newLines() {
     return lines;
 }
 
-static Line newLine(unsigned lineNumber, unsigned until) {
+static Line newLine(unsigned lineNumber, unsigned offset) {
     Line lineValue;
     lineValue.line = lineNumber;
-    lineValue.until = until;
+    lineValue.offset = offset;
     return lineValue;
 }
 
@@ -24,7 +24,7 @@ void resetLines(Lines* array) {
 
 void addLines(Lines* array, unsigned line) {
     if (array->count > 0 && (array->values[array->count - 1].line == line)) {
-        array->values[array->count - 1].until++;
+        array->values[array->count - 1].offset++;
         return;
     }
 
@@ -34,7 +34,7 @@ void addLines(Lines* array, unsigned line) {
         array->values = GROW_ARRAY(Line, array->values, oldCapacity, array->capacity);
     }
 
-    array->values[array->count] = newLine(line, getLastLine(array)->until + 1);
+    array->values[array->count] = newLine(line, getLastLine(array)->offset + 1);
     array->count++;
 }
 

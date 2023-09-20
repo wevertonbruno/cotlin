@@ -18,7 +18,7 @@ void resetChunk(Chunk* chunk) {
     chunk->constants = newValueArray();
 }
 
-void addChunk(Chunk* chunk, uint8_t byte, unsigned line) {
+void writeChunk(Chunk* chunk, uint8_t byte, unsigned line) {
     if (chunk->capacity < chunk->count + 1) {
         int oldCapacity = chunk->capacity;
         chunk->capacity = GROW_CAPACITY(oldCapacity);
@@ -42,23 +42,37 @@ int addConstant(Chunk* chunk, Value value) {
     return chunk->constants.count - 1;
 }
 
+void writeConstant(Chunk* chunk, Value value, unsigned line) {
+    int index = addConstant(chunk, value);
+    if (index < 256) {
+        writeChunk(chunk, OP_CONSTANT, line);
+        writeChunk(chunk, (uint8_t)index, line);
+    }else{
+        writeChunk(chunk, OP_CONSTANT_LONG, line);
+        writeChunk(chunk, (uint8_t) (index & 0xff), line);
+        writeChunk(chunk, (uint8_t)((index >> 8) & 0xff), line);
+        writeChunk(chunk, (uint8_t)((index >> 16) & 0xff), line);
+    }
+}
+
 static void printLines(Lines* lines) {
     printf("Printing lines...\n");
     printf("Line count: %d\n", lines->count);
     for (int i = 0; i < lines->count; i++) {
         printf("number: %4d \n", lines->values[i].line);
-        printf("until: %4d \n", lines->values[i].until);
+        printf("offset: %4d \n", lines->values[i].offset);
     }
     printf("\n");
 }
 
+
+// Improve by dividing to conquer: mid = start - end / 2;
 unsigned getLine(Chunk* chunk, unsigned offset) {
     for (unsigned i = 0; i < chunk->lines.count; i++)
     {
-        if (offset < chunk->lines.values[i].until) {
+        if (offset < chunk->lines.values[i].offset) {
             return chunk->lines.values[i].line;
         }
-
     }
     return 0;
 }
