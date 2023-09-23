@@ -3,9 +3,13 @@
 
 #include "chunk.h"
 
+#define VM_STACK_SIZE 256
+
 typedef struct {
     Chunk* chunk;
     uint8_t* ip; // Instruction pointer
+    Value stack[VM_STACK_SIZE];
+    Value* stackHead;
 } VM;
 
 typedef enum {
@@ -17,5 +21,7 @@ typedef enum {
 VM vmNew();
 void vmStop(VM*);
 InterpreterResult vmInterpret(VM* vm, Chunk* chunk);
+void vmStackPush(VM* vm, Value value);
+Value vmStackPop(VM* vm);
 
 #endif

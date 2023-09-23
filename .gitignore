@@ -1,4 +1,4 @@
 bin/*
-build/*
+obj/*
 !bin/.gitkeep
-!build/.gitkeep
+!obj/.gitkeep
