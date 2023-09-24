@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "vm.h"
 #include "debug.h"
+#include "compiler.h"
 
 static void printStack(VM* vm) {
     printf("Stack -> ");
@@ -74,10 +76,9 @@ static InterpreterResult execute(VM* vm) { //Decoding
     #undef BINARY_OPERATION
 }
 
-InterpreterResult vmInterpret(VM* vm, Chunk* chunk) {
-    vm->chunk = chunk;
-    vm->ip = chunk->code;
-    return execute(vm);
+InterpreterResult vmInterpret(VM* vm, const char* source) {
+    compile(source);
+    return INTERPRET_OK;
 }
 
 VM vmNew() {
@@ -96,4 +97,8 @@ void vmStackPush(VM* vm, Value value) {
 Value vmStackPop(VM* vm) {
     vm->stackHead--;
     return *vm->stackHead;
+}
+
+void vmStop(VM* vm) {
+    vm->ip = NULL;
 }

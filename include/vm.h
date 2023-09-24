@@ -1,6 +1,7 @@
 #ifndef cotlin_vm_h
 #define cotlin_vm_h
 
+#include <stdlib.h>
 #include "chunk.h"
 
 #define VM_STACK_SIZE 256
@@ -20,7 +21,7 @@ typedef enum {
 
 VM vmNew();
 void vmStop(VM*);
-InterpreterResult vmInterpret(VM* vm, Chunk* chunk);
+InterpreterResult vmInterpret(VM* vm, const char* source);
 void vmStackPush(VM* vm, Value value);
 Value vmStackPop(VM* vm);
 

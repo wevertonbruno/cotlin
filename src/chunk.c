@@ -68,7 +68,7 @@ static void printLines(Lines* lines) {
 
 // Improve by dividing to conquer: mid = start - end / 2;
 unsigned getLine(Chunk* chunk, unsigned offset) {
-    for (unsigned i = 0; i < chunk->lines.count; i++)
+    for (int i = 0; i < chunk->lines.count; i++)
     {
         if (offset < chunk->lines.values[i].offset) {
             return chunk->lines.values[i].line;

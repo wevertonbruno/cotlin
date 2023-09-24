@@ -6,5 +6,6 @@
 #include <stdint.h>
 
 #define DEBUG_TRACE_EXECUTION
+#define OPEN_FILE_ERROR 74
 
 #endif
