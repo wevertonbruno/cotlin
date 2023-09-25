@@ -1,1 +1,16 @@
+// Comment line
+
+/* 
+ * multiline Comment
+ * 123
+ */
+class {
+    this.current = 1
+    fun method() {
+        return 1 + 2 * 3 / 1;
+    }
+}
+
+
+and
 ()

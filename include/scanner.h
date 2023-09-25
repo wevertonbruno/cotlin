@@ -1,7 +1,8 @@
 #ifndef cotlin_scanner_h
 #define cotlin_scanner_h
 
-typedef enum {
+typedef enum
+{
     // Single-character tokens.
     TOKEN_LEFT_PAREN,
     TOKEN_RIGHT_PAREN,
@@ -14,6 +15,7 @@ typedef enum {
     TOKEN_SEMICOLON,
     TOKEN_SLASH,
     TOKEN_STAR,
+    TOKEN_NL,
 
     // One or two character tokens.
     TOKEN_BANG,
@@ -47,32 +49,36 @@ typedef enum {
     TOKEN_RETURN,
     TOKEN_VAR,
     TOKEN_WHILE,
+    TOKEN_WHEN,
 
     // EOF and error
     TOKEN_ERROR,
     TOKEN_EOF
 } TokenType;
 
-typedef struct {
+typedef struct
+{
     int line;
     int column;
 } Location;
 
-typedef struct {
+typedef struct
+{
     TokenType type;
-    const char* start;
+    const char *start;
     int length;
     Location location;
 } Token;
 
-
-typedef struct {
-    const char* start;
-    const char* current;
+typedef struct
+{
+    const char *start;
+    const char *current;
+    TokenType lastToken;
     Location location;
 } Scanner;
 
-Scanner scannerNew(const char* source);
-Token scanToken(Scanner*);
+Scanner scannerNew(const char *source);
+Token scanToken(Scanner *);
 
 #endif
